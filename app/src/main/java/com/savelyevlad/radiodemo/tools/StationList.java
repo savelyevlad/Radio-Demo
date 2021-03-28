@@ -1,4 +1,4 @@
-package com.savelyevlad.radiodemo;
+package com.savelyevlad.radiodemo.tools;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +26,24 @@ public class StationList {
     }
 
     public static String getPlayingStation() {
+        if(nowPlayingId == -1) {
+            nowPlayingId = 0;
+            return stations.get(0);
+        }
         return stations.get(nowPlayingId);
+    }
+
+    public static void inc() {
+        ++nowPlayingId;
+        if(nowPlayingId >= stations.size()) {
+            nowPlayingId = 0;
+        }
+    }
+
+    public static void dec() {
+        --nowPlayingId;
+        if(nowPlayingId <= -1) {
+            nowPlayingId = stations.size() - 1;
+        }
     }
 }

@@ -1,15 +1,10 @@
-package com.savelyevlad.radiodemo;
+package com.savelyevlad.radiodemo.services;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
-import android.net.wifi.WifiManager;
 import android.os.IBinder;
-import android.os.PowerManager;
 
 import androidx.annotation.Nullable;
 
@@ -19,11 +14,13 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.savelyevlad.radiodemo.R;
+import com.savelyevlad.radiodemo.tools.StationList;
 
 public class PlayerService extends Service implements AudioManager.OnAudioFocusChangeListener {
 
-    private WifiManager.WifiLock mWiFiLock;
-    private PowerManager.WakeLock mWakeLock;
+//    private WifiManager.WifiLock mWiFiLock;
+//    private PowerManager.WakeLock mWakeLock;
     private AudioManager audioManager;
     private MediaSource mediaSource;
     private SimpleExoPlayer player;

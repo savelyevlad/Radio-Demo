@@ -18,7 +18,7 @@
         android:theme="@style/Theme.RadioDemo"
         android:usesCleartextTraffic="true">
 
-        <service android:name=".PlayerService" />
+        <service android:name=".services.PlayerService" />
 
         <uses-library
             android:name="org.apache.http.legacy"
