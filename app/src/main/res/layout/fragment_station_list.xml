@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-<!--    tools:context=".FirstFragment">-->
-
-    <!-- TODO: Update blank fragment layout -->
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FragmentStationList">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,11 +22,14 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"></LinearLayout>
 
-            <TextView
+            <Button
+                android:id="@+id/buttonReturnBack"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="<"
-                android:textSize="24sp" />
+                android:text="@string/back"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:backgroundTint="#FAF6F6"/>
 
             <LinearLayout
                 android:layout_width="100dp"
@@ -60,6 +60,7 @@
             android:orientation="vertical">
 
             <ListView
+                android:id="@+id/list_of_frequencies"
                 android:layout_width="match_parent"
                 android:layout_height="579dp"
                 android:background="#F3F1F1"
@@ -101,9 +102,9 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoText="false"
-            android:text="                                                        Add" />
+            android:textAlignment="center"
+            android:text="Add"/>
 
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>
