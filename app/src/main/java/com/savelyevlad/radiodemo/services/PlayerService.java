@@ -15,6 +15,7 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.savelyevlad.radiodemo.R;
+import com.savelyevlad.radiodemo.ads.AdsRunner;
 import com.savelyevlad.radiodemo.tools.StationList;
 
 public class PlayerService extends Service implements AudioManager.OnAudioFocusChangeListener {
@@ -28,6 +29,7 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
     @Override
     public void onCreate() {
         audioManager = (AudioManager) getApplicationContext().getSystemService(AUDIO_SERVICE);
+        AdsRunner.setRadioPlayer(player);
         super.onCreate();
     }
 

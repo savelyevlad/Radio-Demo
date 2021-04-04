@@ -1,4 +1,4 @@
-package com.savelyevlad.radiodemo;
+package com.savelyevlad.radiodemo.fragments;
 
 import android.os.Bundle;
 
@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.savelyevlad.radiodemo.MainActivity;
+import com.savelyevlad.radiodemo.R;
 
 public class FragmentStationList extends Fragment {
 

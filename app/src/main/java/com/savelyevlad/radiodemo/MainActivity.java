@@ -7,13 +7,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.savelyevlad.radiodemo.ads.AdsRunner;
+import com.savelyevlad.radiodemo.fragments.FragmentMain;
+import com.savelyevlad.radiodemo.fragments.FragmentStationList;
 import com.savelyevlad.radiodemo.services.PlayerService;
-import com.savelyevlad.radiodemo.tools.NetworkTools;
 import com.savelyevlad.radiodemo.tools.StationList;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         filter.addAction("android.intent.action.PHONE_STATE");
         registerReceiver(broadcastReceiver, filter);
 
+        stop();
+
         getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, fragmentMain).commit();
     }
 
@@ -66,10 +68,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void play() {
+        AdsRunner.initialize(this);
         setIsPlaying(true);
         Intent servicePlayIntent = new Intent(this, PlayerService.class);
         servicePlayIntent.putExtra("playStop", "play");
         startService(servicePlayIntent);
+        AdsRunner.start();
     }
 
     public void stop() {
@@ -78,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         serviceStopIntent.putExtra("playStop", "stop");
         startService(serviceStopIntent);
         StationList.setNowPlayingId(-1);
+        AdsRunner.stop();
     }
 
     public FragmentStationList getFragmentStationList() {
