@@ -49,24 +49,48 @@ public class AdsRunner {
     }
 
     public static void stop() {
-        if (!isInitialized) {
-            throw new AdsNotInitializedException();
-        }
         isRunning = false;
     }
 
     public static void playAds() {
-        radioPlayer.getVolume();
+        // make radioPlayer quieter
+        quieter();
+        // play ads
         MediaPlayer mp = MediaPlayer.create(mainActivity, R.raw.ads1);
         mp.setOnErrorListener((mp1, what, extra) -> {
-            Toast.makeText(mainActivity.getApplicationContext(), "OnErrorListener", Toast.LENGTH_LONG).show();
+            Toast.makeText(mainActivity.getApplicationContext(), "ads error", Toast.LENGTH_LONG).show();
             mp1.stop();
+            louder();
             return false;
         });
-        mp.setOnCompletionListener(mp12 -> {
-            mp12.stop();
+        mp.setOnCompletionListener(mp1 -> {
+            mp1.stop();
+            // make radioPlayer louder
+            louder();
         });
         mp.start();
+    }
+
+    private static void quieter() {
+        while (radioPlayer.getVolume() > 0.1f) {
+            radioPlayer.setVolume(radioPlayer.getVolume() - 0.1f);
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void louder() {
+        while (radioPlayer.getVolume() < 1) {
+            radioPlayer.setVolume(radioPlayer.getVolume() + 0.1f);
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static boolean isIsInitialized() {
@@ -85,4 +109,6 @@ public class AdsRunner {
         AdsRunner.radioPlayer = radioPlayer;
 //        isInitialized = (mainActivity != null && radioPlayer != null);
     }
+
+    private AdsRunner() { }
 }

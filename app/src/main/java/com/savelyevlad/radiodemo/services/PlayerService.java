@@ -29,7 +29,6 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
     @Override
     public void onCreate() {
         audioManager = (AudioManager) getApplicationContext().getSystemService(AUDIO_SERVICE);
-        AdsRunner.setRadioPlayer(player);
         super.onCreate();
     }
 
@@ -39,9 +38,10 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
         if (input != null && input.equals("play")) {
             if (requestFocus()) {
                 initPlayer();
+                AdsRunner.setRadioPlayer(player);
                 play();
             }
-        } else {
+        } else if(input != null && input.equals("stop")) {
             stop();
         }
         return START_NOT_STICKY;

@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         filter.addAction("android.intent.action.PHONE_STATE");
         registerReceiver(broadcastReceiver, filter);
 
-        stop();
+        startPlayerService();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, fragmentMain).commit();
     }
@@ -83,6 +83,12 @@ public class MainActivity extends AppCompatActivity {
         startService(serviceStopIntent);
         StationList.setNowPlayingId(-1);
         AdsRunner.stop();
+    }
+
+    private void startPlayerService() {
+        Intent serviceStopIntent = new Intent(this, PlayerService.class);
+        serviceStopIntent.putExtra("playStop", "first run");
+        startService(serviceStopIntent);
     }
 
     public FragmentStationList getFragmentStationList() {
