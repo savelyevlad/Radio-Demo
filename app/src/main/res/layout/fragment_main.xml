@@ -75,7 +75,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/textFmRadioInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -89,6 +89,7 @@
             android:layout_height="300dp">
 
             <TextView
+                android:id="@+id/text_ads_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Reklama"

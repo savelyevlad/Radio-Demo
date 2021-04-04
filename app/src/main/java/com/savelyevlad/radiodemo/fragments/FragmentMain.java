@@ -36,6 +36,8 @@ public class FragmentMain extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
+        AdsRunner.setFragmentMain(rootView);
+
         buttonTurnOnOff = rootView.findViewById(R.id.buttonTurnOnOff);
         buttonTurnOnOff.setOnClickListener((view) -> {
             if (NetworkTools.isNetworkAvailable(mainActivity)) {
