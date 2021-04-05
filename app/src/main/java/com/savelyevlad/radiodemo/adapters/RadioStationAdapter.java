@@ -47,7 +47,7 @@ public class RadioStationAdapter extends BaseAdapter {
             view = lInflater.inflate(R.layout.station_list_item, parent, false);
         }
         TextView textView = view.findViewById(R.id.list_item);
-        textView.setText(objects.get(position).getAddress());
+        textView.setText(objects.get(position).getName());
 
         int curr = StationList.getNowPlayingId();
 
