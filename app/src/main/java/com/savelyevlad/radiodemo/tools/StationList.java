@@ -1,5 +1,8 @@
 package com.savelyevlad.radiodemo.tools;
 
+import com.savelyevlad.radiodemo.adapters.RadioStation;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,8 +11,6 @@ public class StationList {
     private static int nowPlayingId = -1;
 
     private static final List<String> stations = Arrays.asList(
-//            "android.resource://com.savelyevlad.radiodemo/raw/ads1.mp3",
-            "http://198.58.98.83:8258/stream",
             "http://198.58.98.83:8258/stream",
             "http://aska.ru-hoster.com:8053/autodj");
 
@@ -45,5 +46,13 @@ public class StationList {
         if(nowPlayingId <= -1) {
             nowPlayingId = stations.size() - 1;
         }
+    }
+
+    public static ArrayList<RadioStation> getRadioStationsArrayList() {
+        ArrayList<RadioStation> res = new ArrayList<>();
+        for (String s : stations) {
+            res.add(new RadioStation(s, s));
+        }
+        return res;
     }
 }

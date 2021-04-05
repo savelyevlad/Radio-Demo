@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.savelyevlad.radiodemo.R;
+import com.savelyevlad.radiodemo.tools.StationList;
 
 import java.util.ArrayList;
 
@@ -44,6 +45,17 @@ public class RadioStationAdapter extends BaseAdapter {
         View view = convertView;
         if (view == null) {
             view = lInflater.inflate(R.layout.station_list_item, parent, false);
+        }
+        TextView textView = view.findViewById(R.id.list_item);
+        textView.setText(objects.get(position).getAddress());
+
+        int curr = StationList.getNowPlayingId();
+
+        if (position == curr) {
+            view.findViewById(R.id.list_item).setBackgroundColor(0xFF00FF00);
+        }
+        else {
+            view.findViewById(R.id.list_item).setBackgroundColor(0);
         }
 
         return view;

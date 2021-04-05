@@ -48,10 +48,7 @@ public class AdsRunner {
                     return;
                 }
 
-                TextView textView = fragmentMain.findViewById(R.id.textFmRadioInfo);
-                textView.setText(adsIsPlaying + " " + isRunning);
-
-                textView = fragmentMain.findViewById(R.id.text_ads_time);
+                TextView textView = fragmentMain.findViewById(R.id.text_ads_time);
                 textView.setText(secondsToAds + "");
 
                 if(adsIsPlaying || !isRunning) {
@@ -71,34 +68,6 @@ public class AdsRunner {
                 //
             }
         }.start();
-
-//        t = new Thread(()-> {
-//            try {
-//                while (true) {
-//                    mainActivity.runOnUiThread(() -> {
-//                        TextView textView = fragmentMain.findViewById(R.id.textFmRadioInfo);
-//                        textView.setText(adsIsPlaying + " " + isRunning);
-//                    });
-//                    if(isRunning && !adsIsPlaying) {
-//                        for(int secondsToAds = SECONDS_BETWEEN_ADS; secondsToAds > 0; --secondsToAds) { // every minute
-//                            Thread.sleep(1000);
-//                            int finalI = secondsToAds;
-//                            mainActivity.runOnUiThread(() -> {
-//                               TextView textView = fragmentMain.findViewById(R.id.text_ads_time);
-//                               textView.setText(finalI + "");
-//                            });
-//                        }
-//                        // TODO: not working for some reason
-////                        adsIsPlaying = true;
-//                        mainActivity.runOnUiThread(() -> {
-//                            playAds();
-//                        });
-//                    }
-//                }
-//            } catch (InterruptedException ignored) {
-//            }
-//        });
-//        t.start();
     }
 
     public static void start() {

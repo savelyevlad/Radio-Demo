@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.view.KeyEvent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -57,6 +58,16 @@ public class MainActivity extends AppCompatActivity {
         stopService(new Intent(getApplicationContext(), PlayerService.class));
         unregisterReceiver(broadcastReceiver);
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!getFragmentMain().isVisible()) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, getFragmentMain()).commit();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
     public void setIsPlaying(boolean status) {

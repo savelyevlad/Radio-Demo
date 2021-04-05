@@ -78,8 +78,10 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
     }
 
     private void stop() {
-        player.setPlayWhenReady(false);
-        player.stop();
+        if(player != null) {
+            player.setPlayWhenReady(false);
+            player.stop();
+        }
     }
 
     private void initPlayer() {

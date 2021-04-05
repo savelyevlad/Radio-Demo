@@ -60,7 +60,7 @@
             android:orientation="vertical">
 
             <ListView
-                android:id="@+id/list_of_frequencies"
+                android:id="@+id/list_of_stations"
                 android:layout_width="match_parent"
                 android:layout_height="579dp"
                 android:background="#F3F1F1"
