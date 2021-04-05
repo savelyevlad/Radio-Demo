@@ -2,6 +2,7 @@ package com.savelyevlad.radiodemo.ads;
 
 import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,8 +13,8 @@ import com.savelyevlad.radiodemo.R;
 
 public class AdsRunner {
 
-    private static final int SECONDS_BETWEEN_ADS = 60;
-    private static int secondsToAds;
+    private static final int SECONDS_BETWEEN_ADS = 30;
+    private static int secondsToAds = SECONDS_BETWEEN_ADS;
 
     private static boolean isInitialized = false;
     private static boolean isRunning = false;
@@ -35,33 +36,69 @@ public class AdsRunner {
         AdsRunner.mainActivity = mainActivity;
         isInitialized = true;
 
-        t = new Thread(()-> {
-            try {
-                while (true) {
-                    mainActivity.runOnUiThread(() -> {
-                        TextView textView = fragmentMain.findViewById(R.id.textFmRadioInfo);
-                        textView.setText(adsIsPlaying + "");
-                    });
-                    if(isRunning && !adsIsPlaying) {
-                        for(int secondsToAds = SECONDS_BETWEEN_ADS; secondsToAds > 0; --secondsToAds) { // every minute
-                            Thread.sleep(1000);
-                            int finalI = secondsToAds;
-                            mainActivity.runOnUiThread(() -> {
-                               TextView textView = fragmentMain.findViewById(R.id.text_ads_time);
-                               textView.setText(finalI + "");
-                            });
-                        }
-                        // TODO: not working for some reason
-//                        adsIsPlaying = true;
-                        mainActivity.runOnUiThread(() -> {
-                            playAds();
-                        });
-                    }
+        new CountDownTimer(1000_000_000_000_000_000L, 1000) {
+
+            boolean firstRun = true;
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                if(firstRun) {
+                    firstRun = false;
+                    return;
                 }
-            } catch (InterruptedException ignored) {
+
+                TextView textView = fragmentMain.findViewById(R.id.textFmRadioInfo);
+                textView.setText(adsIsPlaying + " " + isRunning);
+
+                textView = fragmentMain.findViewById(R.id.text_ads_time);
+                textView.setText(secondsToAds + "");
+
+                if(adsIsPlaying || !isRunning) {
+                    return;
+                }
+
+                if(--secondsToAds > 0) {
+                    return;
+                }
+                secondsToAds = SECONDS_BETWEEN_ADS;
+                adsIsPlaying = true;
+                playAds();
             }
-        });
-        t.start();
+
+            @Override
+            public void onFinish() {
+                //
+            }
+        }.start();
+
+//        t = new Thread(()-> {
+//            try {
+//                while (true) {
+//                    mainActivity.runOnUiThread(() -> {
+//                        TextView textView = fragmentMain.findViewById(R.id.textFmRadioInfo);
+//                        textView.setText(adsIsPlaying + " " + isRunning);
+//                    });
+//                    if(isRunning && !adsIsPlaying) {
+//                        for(int secondsToAds = SECONDS_BETWEEN_ADS; secondsToAds > 0; --secondsToAds) { // every minute
+//                            Thread.sleep(1000);
+//                            int finalI = secondsToAds;
+//                            mainActivity.runOnUiThread(() -> {
+//                               TextView textView = fragmentMain.findViewById(R.id.text_ads_time);
+//                               textView.setText(finalI + "");
+//                            });
+//                        }
+//                        // TODO: not working for some reason
+////                        adsIsPlaying = true;
+//                        mainActivity.runOnUiThread(() -> {
+//                            playAds();
+//                        });
+//                    }
+//                }
+//            } catch (InterruptedException ignored) {
+//            }
+//        });
+//        t.start();
     }
 
     public static void start() {
