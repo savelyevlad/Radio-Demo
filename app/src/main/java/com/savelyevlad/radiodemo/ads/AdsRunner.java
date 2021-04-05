@@ -13,7 +13,7 @@ import com.savelyevlad.radiodemo.R;
 
 public class AdsRunner {
 
-    private static final int SECONDS_BETWEEN_ADS = 30;
+    private static final int SECONDS_BETWEEN_ADS = 60;
     private static int secondsToAds = SECONDS_BETWEEN_ADS;
 
     private static boolean isInitialized = false;
