@@ -27,6 +27,8 @@ public class FragmentMain extends Fragment {
 
     private FloatingActionButton buttonTurnOnOff = null;
     private FloatingActionButton buttonMenu = null;
+    private FloatingActionButton buttonRight = null;
+    private FloatingActionButton buttonLeft = null;
     private TextView nowIsPlaying;
 
     public FragmentMain() {
@@ -47,19 +49,33 @@ public class FragmentMain extends Fragment {
         AdsRunner.setFragmentMain(rootView);
 
         buttonTurnOnOff = rootView.findViewById(R.id.buttonTurnOnOff);
+        buttonLeft = rootView.findViewById(R.id.buttonLeft);
+        buttonRight = rootView.findViewById(R.id.buttonRight);
+
         buttonTurnOnOff.setOnClickListener((view) -> {
             if (NetworkTools.isNetworkAvailable(mainActivity)) {
                 if (mainActivity.getIsPlaying()) {
                     mainActivity.stop();
-                    AdsRunner.stop();
+//                    AdsRunner.stop();
                 }
                 else {
                     mainActivity.play();
-                    AdsRunner.start();
+//                    AdsRunner.start();
                 }
             } else {
                 Toast.makeText(mainActivity.getApplicationContext(), "No internet", Toast.LENGTH_LONG).show();
             }
+        });
+
+        buttonLeft.setOnClickListener((view) -> {
+            mainActivity.stop();
+            StationList.dec();
+            mainActivity.play();
+        });
+        buttonRight.setOnClickListener((view) -> {
+            mainActivity.stop();
+            StationList.inc();
+            mainActivity.play();
         });
 
         buttonMenu = rootView.findViewById(R.id.buttonMenu);

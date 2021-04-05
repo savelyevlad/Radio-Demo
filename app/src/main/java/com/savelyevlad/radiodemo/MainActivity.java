@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         Intent serviceStopIntent = new Intent(this, PlayerService.class);
         serviceStopIntent.putExtra("playStop", "stop");
         startService(serviceStopIntent);
-        StationList.setNowPlayingId(-1);
+//        StationList.setNowPlayingId(-1);
         AdsRunner.stop();
     }
 
