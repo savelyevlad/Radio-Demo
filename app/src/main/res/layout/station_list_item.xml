@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/black">
 
     <TextView
         android:id="@+id/list_item"
@@ -10,13 +11,14 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:maxLines="1"
-        android:text="" />
+        android:text=""
+        android:textColor="@color/white"/>
 
-<!--    <TextView-->
-<!--        android:id="@+id/list_name"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textSize="15sp"-->
-<!--        android:maxLines="1"-->
-<!--        android:text="New frequency" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/list_name"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:textSize="15sp"-->
+    <!--        android:maxLines="1"-->
+    <!--        android:text="New frequency" />-->
 </LinearLayout>

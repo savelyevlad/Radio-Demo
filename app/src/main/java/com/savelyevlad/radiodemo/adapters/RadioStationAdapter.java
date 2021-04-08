@@ -1,6 +1,7 @@
 package com.savelyevlad.radiodemo.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,7 @@ public class RadioStationAdapter extends BaseAdapter {
         int curr = StationList.getNowPlayingId();
 
         if (position == curr) {
-            view.findViewById(R.id.list_item).setBackgroundColor(0xFF00FF00);
+            view.findViewById(R.id.list_item).setBackgroundColor(Color.parseColor("#707070"));
         }
         else {
             view.findViewById(R.id.list_item).setBackgroundColor(0);
