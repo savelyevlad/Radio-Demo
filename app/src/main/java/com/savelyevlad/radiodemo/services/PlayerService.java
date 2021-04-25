@@ -63,7 +63,7 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
     public void onAudioFocusChange(int focusChange) {
         if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT || focusChange == AudioManager.AUDIOFOCUS_LOSS) {
             stop();
-            System.exit(0);
+//            System.exit(0);
         }
     }
 

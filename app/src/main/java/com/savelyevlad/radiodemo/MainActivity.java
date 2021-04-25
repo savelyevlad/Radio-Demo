@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.savelyevlad.radiodemo.ads.AdsRunner;
+import com.savelyevlad.radiodemo.fragments.FragmentAdsList;
 import com.savelyevlad.radiodemo.fragments.FragmentMain;
 import com.savelyevlad.radiodemo.fragments.FragmentStationList;
 import com.savelyevlad.radiodemo.services.PlayerService;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentStationList fragmentStationList = new FragmentStationList();
     private FragmentMain fragmentMain = new FragmentMain();
+    private FragmentAdsList fragmentAdsList = new FragmentAdsList(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         if (!getFragmentMain().isVisible()) {
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, getFragmentMain()).commit();
         }
+        else if(!getFragmentAdsList().isVisible()) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, getFragmentMain()).commit();
+        }
         else {
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
@@ -80,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void run() {
-                    doubleBackToExitPressedOnce=false;
+                    doubleBackToExitPressedOnce = false;
                 }
             }, 2000);
         }
@@ -126,5 +131,9 @@ public class MainActivity extends AppCompatActivity {
 
     public FragmentMain getFragmentMain() {
         return fragmentMain;
+    }
+
+    public FragmentAdsList getFragmentAdsList() {
+        return fragmentAdsList;
     }
 }

@@ -13,7 +13,7 @@ import com.savelyevlad.radiodemo.R;
 
 public class AdsRunner {
 
-    private static final int SECONDS_BETWEEN_ADS = 60;
+    private static int SECONDS_BETWEEN_ADS = 60;
     private static int secondsToAds = SECONDS_BETWEEN_ADS;
 
     private static boolean isInitialized = false;
@@ -139,6 +139,13 @@ public class AdsRunner {
 
     public static void setFragmentMain(View fragmentMain) {
         AdsRunner.fragmentMain = fragmentMain;
+    }
+
+    public static void setSecondsBetweenAds(int sec) {
+        SECONDS_BETWEEN_ADS = sec;
+        if(!isRunning) {
+            secondsToAds = sec;
+        }
     }
 
     private AdsRunner() { }
