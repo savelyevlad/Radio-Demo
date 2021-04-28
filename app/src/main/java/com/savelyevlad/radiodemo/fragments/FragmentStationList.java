@@ -10,6 +10,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -77,6 +78,27 @@ public class FragmentStationList extends Fragment {
                 StationList.setNowPlayingId(position);
                 radioStationAdapter.notifyDataSetChanged();
                 mainActivity.play();
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            private int id;
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                this.id = (int) id;
+                AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+                builder.setMessage("Delete station?")
+                        .setCancelable(true)
+                        .setPositiveButton("Delete", (dialog, id1) -> {
+                            StationList.removeStation(this.id);
+                            StationList.updateRadioStations();
+                            radioStationAdapter.notifyDataSetChanged();
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+                return true;
             }
         });
 

@@ -74,6 +74,17 @@ public class StationList {
         }
     }
 
+    public static void removeStation(int i) {
+        if (i == nowPlayingId) {
+            nowPlayingId = -1;
+        }
+        else if(i < nowPlayingId) {
+            --nowPlayingId;
+        }
+        stationsNames.remove(i);
+        stations.remove(i);
+    }
+
     public static ArrayList<RadioStation> getRadioStationsArrayList() {
         return radioStations;
     }
