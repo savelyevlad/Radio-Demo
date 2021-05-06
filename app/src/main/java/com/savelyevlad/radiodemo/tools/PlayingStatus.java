@@ -1,6 +1,6 @@
 package com.savelyevlad.radiodemo.tools;
 
-public enum PlaybackStatus {
+public enum PlayingStatus {
     PLAYING,
     PAUSED
 }

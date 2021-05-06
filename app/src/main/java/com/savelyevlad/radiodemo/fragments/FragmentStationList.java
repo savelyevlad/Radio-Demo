@@ -104,4 +104,8 @@ public class FragmentStationList extends Fragment {
 
         return rootView;
     }
+
+    public RadioStationAdapter getRadioStationAdapter() {
+        return radioStationAdapter;
+    }
 }

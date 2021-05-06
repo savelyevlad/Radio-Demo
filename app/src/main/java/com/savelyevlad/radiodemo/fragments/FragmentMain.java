@@ -75,14 +75,10 @@ public class FragmentMain extends Fragment {
         });
 
         buttonLeft.setOnClickListener((l) -> {
-            mainActivity.stop();
-            StationList.dec();
-            mainActivity.play();
+            mainActivity.previous();
         });
         buttonRight.setOnClickListener((l) -> {
-            mainActivity.stop();
-            StationList.inc();
-            mainActivity.play();
+            mainActivity.next();
         });
 
         buttonMenu = rootView.findViewById(R.id.buttonMenu);
@@ -97,6 +93,10 @@ public class FragmentMain extends Fragment {
     }
 
     private String nowPlayingData = null;
+
+    public String getNowPlayingData() {
+        return nowPlayingData;
+    }
 
     private void loadNowPlaying() {
         new CountDownTimer(1000_000_000_000_000_000L, 1000) {

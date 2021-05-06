@@ -1,26 +1,39 @@
 package com.savelyevlad.radiodemo;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.savelyevlad.radiodemo.ads.AdsRunner;
 import com.savelyevlad.radiodemo.fragments.FragmentAdsList;
 import com.savelyevlad.radiodemo.fragments.FragmentMain;
 import com.savelyevlad.radiodemo.fragments.FragmentStationList;
 import com.savelyevlad.radiodemo.services.PlayerService;
+import com.savelyevlad.radiodemo.tools.PlayingStatus;
 import com.savelyevlad.radiodemo.tools.StationList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static MainActivity instance = null;
 
     private BroadcastReceiver broadcastReceiver;
     private boolean isPlaying = false;
@@ -34,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        instance = this;
+
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -43,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                         if (getIsPlaying()) {
                             stop();
                         }
-                        System.exit(0);
                     }
                 }
             }
@@ -61,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         stopService(new Intent(getApplicationContext(), PlayerService.class));
         unregisterReceiver(broadcastReceiver);
+        PlayerService.getInstance().removeNotification();
         super.onDestroy();
     }
 
@@ -108,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         servicePlayIntent.putExtra("playStop", "play");
         startService(servicePlayIntent);
         AdsRunner.start();
+        PlayerService.getInstance().buildNotification(PlayingStatus.PLAYING);
     }
 
     public void stop() {
@@ -115,8 +131,28 @@ public class MainActivity extends AppCompatActivity {
         Intent serviceStopIntent = new Intent(this, PlayerService.class);
         serviceStopIntent.putExtra("playStop", "stop");
         startService(serviceStopIntent);
-//        StationList.setNowPlayingId(-1);
         AdsRunner.stop();
+        PlayerService.getInstance().buildNotification(PlayingStatus.PAUSED);
+    }
+
+    public void next() {
+        stop();
+        StationList.inc();
+        play();
+        if (fragmentStationList.getRadioStationAdapter() != null) {
+            fragmentStationList.getRadioStationAdapter().notifyDataSetChanged();
+        }
+        PlayerService.getInstance().buildNotification(PlayingStatus.PLAYING);
+    }
+
+    public void previous() {
+        stop();
+        StationList.dec();
+        play();
+        if (fragmentStationList.getRadioStationAdapter() != null) {
+            fragmentStationList.getRadioStationAdapter().notifyDataSetChanged();
+        }
+        PlayerService.getInstance().buildNotification(PlayingStatus.PLAYING);
     }
 
     private void startPlayerService() {
@@ -135,5 +171,9 @@ public class MainActivity extends AppCompatActivity {
 
     public FragmentAdsList getFragmentAdsList() {
         return fragmentAdsList;
+    }
+
+    public static MainActivity getInstance() {
+        return instance;
     }
 }
