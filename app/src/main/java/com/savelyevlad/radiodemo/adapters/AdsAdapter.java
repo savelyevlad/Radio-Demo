@@ -26,9 +26,9 @@ public class AdsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<String> objects;
     private MainActivity mainActivity;
 
-    public AdsAdapter(MainActivity mainActivity, String[] o) {
+    public AdsAdapter(MainActivity mainActivity, ArrayList<String> o) {
         this.mainActivity = mainActivity;
-        objects = new ArrayList<>(Arrays.asList(o));
+        objects = o;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -38,18 +38,18 @@ public class AdsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.advertisement_list_item, parent, false);
 
-        view.findViewById(R.id.linearLayout).setOnTouchListener((v, event) -> {
-            Log.e("RecyclerViewItem: ", event.getAction() + "");
-            if ((event.getAction() == MotionEvent.ACTION_DOWN)) {
+//        view.findViewById(R.id.linearLayout).setOnTouchListener((v, event) -> {
+//            Log.e("RecyclerViewItem: ", event.getAction() + "");
+//            if ((event.getAction() == MotionEvent.ACTION_DOWN)) {
 //                Log.e("RecyclerViewItem: ", "press");
 //                view.setBackgroundColor(Color.rgb(153, 102, 255));
-            }
-            else if ((event.getAction() == MotionEvent.ACTION_UP)) {
+//            }
+//            else if ((event.getAction() == MotionEvent.ACTION_UP)) {
 //                Log.e("RecyclerViewItem: ", "release");
 //                view.setBackgroundColor(Color.BLACK);
-            }
-            return true;
-        });
+//            }
+//            return true;
+//        });
 
         return new ViewHolder(view);
 

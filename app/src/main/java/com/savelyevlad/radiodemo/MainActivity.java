@@ -24,6 +24,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.savelyevlad.radiodemo.ads.AdsRunner;
+import com.savelyevlad.radiodemo.ads.AdsSelector;
 import com.savelyevlad.radiodemo.fragments.FragmentAdsList;
 import com.savelyevlad.radiodemo.fragments.FragmentMain;
 import com.savelyevlad.radiodemo.fragments.FragmentStationList;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         instance = this;
+        AdsSelector.init(this);
 
         broadcastReceiver = new BroadcastReceiver() {
             @Override

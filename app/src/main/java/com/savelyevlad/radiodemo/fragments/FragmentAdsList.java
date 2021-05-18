@@ -23,6 +23,7 @@ import com.savelyevlad.radiodemo.MainActivity;
 import com.savelyevlad.radiodemo.R;
 import com.savelyevlad.radiodemo.adapters.AdsAdapter;
 import com.savelyevlad.radiodemo.ads.AdsRunner;
+import com.savelyevlad.radiodemo.ads.AdsSelector;
 
 import java.util.List;
 
@@ -82,7 +83,7 @@ public class FragmentAdsList extends Fragment {
             mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, mainActivity.getFragmentMain()).commit();
         });
 
-        adsAdapter = new AdsAdapter(mainActivity, new String[] {"ads1", "ads2", "kek", "shmek"});
+        adsAdapter = new AdsAdapter(mainActivity, AdsSelector.getAds());
         recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
         recyclerView.setAdapter(adsAdapter);
 

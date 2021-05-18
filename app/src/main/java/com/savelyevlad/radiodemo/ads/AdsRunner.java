@@ -85,7 +85,7 @@ public class AdsRunner {
         // make radioPlayer quieter
         quieter();
         // play ads
-        MediaPlayer mp = MediaPlayer.create(mainActivity, R.raw.ads1);
+        MediaPlayer mp = MediaPlayer.create(mainActivity, AdsSelector.select());
         mp.setOnErrorListener((mp1, what, extra) -> {
             Toast.makeText(mainActivity.getApplicationContext(), "ads error", Toast.LENGTH_LONG).show();
             mp1.stop();
