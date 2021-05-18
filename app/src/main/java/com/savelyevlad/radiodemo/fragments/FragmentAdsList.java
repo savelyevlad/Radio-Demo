@@ -2,6 +2,7 @@ package com.savelyevlad.radiodemo.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -81,18 +82,18 @@ public class FragmentAdsList extends Fragment {
         adsAdapter = new AdsAdapter(mainActivity, new String[] {"ads1", "ads2", "kek", "shmek"});
         recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
         recyclerView.setAdapter(adsAdapter);
-        recyclerView.addItemDecoration(new ItemTouchHelper(
-                new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN,
-                        ItemTouchHelper.LEFT) {
-                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                        adsAdapter.swap(viewHolder.getAdapterPosition(), target.getAdapterPosition());
-                        Log.e("kek", "moving item");
-                        return true;
-                    }
-                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                        // remove from adapter
-                    }
-                }));
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN |
+                                                            ItemTouchHelper.START | ItemTouchHelper.END, 0) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                adsAdapter.swap(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+                Log.e("FragmentAdsList:", "moving item");
+                return true;
+            }
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) { }
+        });
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         return rootView;
     }
