@@ -1,6 +1,10 @@
 package com.savelyevlad.radiodemo.adapters;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -27,11 +31,25 @@ public class AdsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         objects = new ArrayList<>(Arrays.asList(o));
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.advertisement_list_item, parent, false);
+
+        view.findViewById(R.id.linearLayout).setOnTouchListener((v, event) -> {
+            Log.e("RecyclerViewItem: ", event.getAction() + "");
+            if ((event.getAction() == MotionEvent.ACTION_DOWN)) {
+//                Log.e("RecyclerViewItem: ", "press");
+//                view.setBackgroundColor(Color.rgb(153, 102, 255));
+            }
+            else if ((event.getAction() == MotionEvent.ACTION_UP)) {
+//                Log.e("RecyclerViewItem: ", "release");
+//                view.setBackgroundColor(Color.BLACK);
+            }
+            return true;
+        });
 
         return new ViewHolder(view);
 
@@ -40,11 +58,11 @@ public class AdsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ((TextView) holder.itemView.findViewById(R.id.list_item)).setText(objects.get(position));
-//        ((ViewHolder)holder).getTextView().setText(objects.get(position));
     }
 
     public void swap(int i, int j) {
         Collections.swap(objects, i, j);
+        notifyItemMoved(i, j);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
