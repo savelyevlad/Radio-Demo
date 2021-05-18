@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class FragmentMain extends Fragment {
     private FloatingActionButton buttonMenu = null;
     private FloatingActionButton buttonRight = null;
     private FloatingActionButton buttonLeft = null;
+    private Button buttonAds = null;
     private TextView nowIsPlaying;
 
     public FragmentMain() {
@@ -51,8 +53,13 @@ public class FragmentMain extends Fragment {
         buttonTurnOnOff = rootView.findViewById(R.id.buttonTurnOnOff);
         buttonLeft = rootView.findViewById(R.id.buttonLeft);
         buttonRight = rootView.findViewById(R.id.buttonRight);
+        buttonAds = rootView.findViewById(R.id.button_ads);
 
-        buttonTurnOnOff.setOnClickListener((view) -> {
+        buttonAds.setOnClickListener((l) -> {
+            mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, mainActivity.getFragmentAdsList()).commit();
+        });
+
+        buttonTurnOnOff.setOnClickListener((l) -> {
             if (NetworkTools.isNetworkAvailable(mainActivity)) {
                 if (mainActivity.getIsPlaying()) {
                     mainActivity.stop();
@@ -67,19 +74,15 @@ public class FragmentMain extends Fragment {
             }
         });
 
-        buttonLeft.setOnClickListener((view) -> {
-            mainActivity.stop();
-            StationList.dec();
-            mainActivity.play();
+        buttonLeft.setOnClickListener((l) -> {
+            mainActivity.previous();
         });
-        buttonRight.setOnClickListener((view) -> {
-            mainActivity.stop();
-            StationList.inc();
-            mainActivity.play();
+        buttonRight.setOnClickListener((l) -> {
+            mainActivity.next();
         });
 
         buttonMenu = rootView.findViewById(R.id.buttonMenu);
-        buttonMenu.setOnClickListener((view) -> {
+        buttonMenu.setOnClickListener((l) -> {
             mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, mainActivity.getFragmentStationList()).commit();
         });
         nowIsPlaying = rootView.findViewById(R.id.textFmRadioInfo);
@@ -90,6 +93,10 @@ public class FragmentMain extends Fragment {
     }
 
     private String nowPlayingData = null;
+
+    public String getNowPlayingData() {
+        return nowPlayingData;
+    }
 
     private void loadNowPlaying() {
         new CountDownTimer(1000_000_000_000_000_000L, 1000) {
