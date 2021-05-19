@@ -129,8 +129,15 @@ public class FragmentMain extends Fragment {
             }
             FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
             mmr.setDataSource(StationList.getPlayingStation());
-            nowPlayingData = mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ICY_METADATA).replaceAll("StreamTitle", "").replaceAll("[=,';]+", "");
-            mmr.release();
+            try {
+                nowPlayingData = mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ICY_METADATA).replaceAll("StreamTitle", "").replaceAll("[=,';]+", "");
+                mmr.release();
+            } catch (IllegalArgumentException e) {
+                nowPlayingData = "error getting data\nthis station is probably not working";
+            }
+            catch (NullPointerException e) {
+//                e.printStackTrace();
+            }
             return null;
         }
 

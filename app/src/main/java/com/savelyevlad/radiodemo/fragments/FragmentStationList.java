@@ -1,12 +1,7 @@
 package com.savelyevlad.radiodemo.fragments;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +9,20 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.savelyevlad.radiodemo.MainActivity;
 import com.savelyevlad.radiodemo.R;
 import com.savelyevlad.radiodemo.adapters.RadioStationAdapter;
 import com.savelyevlad.radiodemo.tools.StationList;
+
+import org.apache.commons.validator.routines.UrlValidator;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class FragmentStationList extends Fragment {
 
@@ -57,13 +60,19 @@ public class FragmentStationList extends Fragment {
             builder.setView(theView);
 
             builder.setPositiveButton("OK", (dialog, which) -> {
-                StationList.getStations().add(((EditText) theView.findViewById(R.id.editTextUrl)).getText().toString());
-                StationList.getStationsNames().add(((EditText) theView.findViewById(R.id.editTextName)).getText().toString());
-                StationList.updateRadioStations();
-                radioStationAdapter.notifyDataSetChanged();
+                String stationName = ((EditText) theView.findViewById(R.id.editTextUrl)).getText().toString();
+                UrlValidator urlValidator = new UrlValidator();
+                if(urlValidator.isValid(stationName)) {
+                    StationList.getStations().add(stationName);
+                    StationList.getStationsNames().add(((EditText) theView.findViewById(R.id.editTextName)).getText().toString());
+                    StationList.updateRadioStations();
+                    radioStationAdapter.notifyDataSetChanged();
+                }
+                else {
+                    Toast.makeText(mainActivity, "The URL address is not correct", Toast.LENGTH_LONG).show();
+                }
             });
             builder.setNegativeButton("Cancel", (dialog, which) -> { });
-
             builder.show();
         });
 
