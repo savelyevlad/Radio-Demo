@@ -24,12 +24,13 @@ import com.savelyevlad.radiodemo.R;
 import com.savelyevlad.radiodemo.adapters.AdsAdapter;
 import com.savelyevlad.radiodemo.ads.AdsRunner;
 import com.savelyevlad.radiodemo.ads.AdsSelector;
+import com.savelyevlad.radiodemo.tools.StorageUtil;
 
 import java.util.List;
 
 public class FragmentAdsList extends Fragment {
 
-    private int adsLength = 60;
+    private int adsLength = StorageUtil.getInt("ads_time");
 
     private MainActivity mainActivity;
     private SeekBar seekBar;
@@ -69,6 +70,7 @@ public class FragmentAdsList extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 ++progress;
                 adsLength = progress * 60;
+                StorageUtil.putInt("ads_time", progress * 60);
                 AdsRunner.setSecondsBetweenAds(progress * 60);
                 textView.setText(adsLength / 60 + "");
             }

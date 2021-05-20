@@ -10,10 +10,11 @@ import android.widget.Toast;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.savelyevlad.radiodemo.MainActivity;
 import com.savelyevlad.radiodemo.R;
+import com.savelyevlad.radiodemo.tools.StorageUtil;
 
 public class AdsRunner {
 
-    private static int SECONDS_BETWEEN_ADS = 60;
+    private static int SECONDS_BETWEEN_ADS = StorageUtil.getInt("ads_time");
     private static int secondsToAds = SECONDS_BETWEEN_ADS;
 
     private static boolean isInitialized = false;

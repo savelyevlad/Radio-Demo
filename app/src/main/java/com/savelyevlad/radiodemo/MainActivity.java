@@ -31,6 +31,7 @@ import com.savelyevlad.radiodemo.fragments.FragmentStationList;
 import com.savelyevlad.radiodemo.services.PlayerService;
 import com.savelyevlad.radiodemo.tools.PlayingStatus;
 import com.savelyevlad.radiodemo.tools.StationList;
+import com.savelyevlad.radiodemo.tools.StorageUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver;
     private boolean isPlaying = false;
 
-    private FragmentStationList fragmentStationList = new FragmentStationList();
-    private FragmentMain fragmentMain = new FragmentMain();
-    private FragmentAdsList fragmentAdsList = new FragmentAdsList(this);
+    private FragmentStationList fragmentStationList;
+    private FragmentMain fragmentMain;
+    private FragmentAdsList fragmentAdsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         instance = this;
+        StorageUtil.init(this);
         AdsSelector.init(this);
+
+        fragmentStationList = new FragmentStationList();
+        fragmentMain = new FragmentMain();
+        fragmentAdsList = new FragmentAdsList(this);
 
         broadcastReceiver = new BroadcastReceiver() {
             @Override
