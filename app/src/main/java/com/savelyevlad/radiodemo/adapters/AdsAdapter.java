@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.savelyevlad.radiodemo.MainActivity;
 import com.savelyevlad.radiodemo.R;
+import com.savelyevlad.radiodemo.ads.AdsSelector;
 
 import org.w3c.dom.Text;
 
@@ -62,6 +63,7 @@ public class AdsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void swap(int i, int j) {
         Collections.swap(objects, i, j);
+        AdsSelector.swap(i, j);
         notifyItemMoved(i, j);
     }
 
