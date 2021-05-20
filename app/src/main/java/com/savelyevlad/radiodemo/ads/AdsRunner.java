@@ -49,7 +49,7 @@ public class AdsRunner {
                 }
 
                 TextView textView = fragmentMain.findViewById(R.id.text_ads_time);
-                textView.setText(secondsToAds + "");
+                textView.setText(minutes(secondsToAds) + ":" + seconds(secondsToAds % 60));
 
                 if(adsIsPlaying || !isRunning) {
                     return;
@@ -68,6 +68,20 @@ public class AdsRunner {
                 //
             }
         }.start();
+    }
+
+    private static String minutes(int seconds) {
+        if(seconds / 60 < 10) {
+            return "0" + seconds / 60;
+        }
+        return seconds / 60 + "";
+    }
+
+    private static String seconds(int seconds) {
+        if(seconds % 60 < 10) {
+            return "0" + seconds % 60;
+        }
+        return seconds % 60 + "";
     }
 
     public static void start() {

@@ -60,16 +60,17 @@ public class FragmentAdsList extends Fragment {
         textView = rootView.findViewById(R.id.textView_time);
         recyclerView = rootView.findViewById(R.id.recyclerAdsList);
 
-        seekBar.setProgress(adsLength);
-        textView.setText(adsLength + "");
+        seekBar.setProgress(adsLength / 60 - 1);
+        textView.setText(adsLength / 60 + "");
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                adsLength = 30 + progress;
-                AdsRunner.setSecondsBetweenAds(30 + progress);
-                textView.setText(adsLength + "");
+                ++progress;
+                adsLength = progress * 60;
+                AdsRunner.setSecondsBetweenAds(progress * 60);
+                textView.setText(adsLength / 60 + "");
             }
 
             @Override
