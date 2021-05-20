@@ -60,11 +60,12 @@ public class FragmentStationList extends Fragment {
             builder.setView(theView);
 
             builder.setPositiveButton("OK", (dialog, which) -> {
-                String stationName = ((EditText) theView.findViewById(R.id.editTextUrl)).getText().toString();
+                String stationUrl = ((EditText) theView.findViewById(R.id.editTextUrl)).getText().toString();
                 UrlValidator urlValidator = new UrlValidator();
-                if(urlValidator.isValid(stationName)) {
-                    StationList.getStations().add(stationName);
-                    StationList.getStationsNames().add(((EditText) theView.findViewById(R.id.editTextName)).getText().toString());
+                if(urlValidator.isValid(stationUrl)) {
+                    StationList.addStation(stationUrl, ((EditText) theView.findViewById(R.id.editTextName)).getText().toString());
+//                    StationList.getStations().add(stationUrl);
+//                    StationList.getStationsNames().add();
                     StationList.updateRadioStations();
                     radioStationAdapter.notifyDataSetChanged();
                 }

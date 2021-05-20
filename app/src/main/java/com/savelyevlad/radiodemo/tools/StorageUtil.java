@@ -28,6 +28,27 @@ public class StorageUtil {
             ArrayList<Integer> adsOrder = new ArrayList<>(Arrays.asList(kek));
             putIntegerArrayList("ads_order",  adsOrder);
         }
+
+        if(getStringArrayList("station_list") == null) {
+            putStringArrayList("station_list", new ArrayList<>(Arrays.asList(
+                    "http://us4.internet-radio.com:8258/",
+                    "http://us4.internet-radio.com:8266/",
+                    "http://us5.internet-radio.com:8267/",
+                    "http://aska.ru-hoster.com:8053/autodj",
+                    "http://64.20.39.8:8421/stream",
+                    "http://uk1.internet-radio.com:8004/",
+                    "http://198.178.123.17:10922/stream"
+            )));
+            putStringArrayList("station_list_names", new ArrayList<>(Arrays.asList(
+                    "Classic Rock Florida HD",
+                    "Smooth Jazz Florida",
+                    "Classic Rock Radio HD",
+                    "LIFE CHILL MUSIC",
+                    "LO FLY Radio",
+                    "Pink Noise Radio",
+                    "San Franciscos 70s HITS!"
+            )));
+        }
     }
 
     public static void putIntegerArrayList(String key, ArrayList<Integer> list) {
@@ -40,6 +61,19 @@ public class StorageUtil {
     public static ArrayList<Integer> getIntegerArrayList(String key) {
         String json = preferences.getString(key, null);
         Type type = new TypeToken<ArrayList<Integer>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
+
+    public static void putStringArrayList(String key, ArrayList<String> list) {
+        SharedPreferences.Editor editor = preferences.edit();
+        String json = gson.toJson(list);
+        editor.putString(key, json);
+        editor.apply();
+    }
+
+    public static ArrayList<String> getStringArrayList(String key) {
+        String json = preferences.getString(key, null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
         return gson.fromJson(json, type);
     }
 
